@@ -1,8 +1,8 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM jupyter/scipy-notebook
+FROM icecube/scipy-notebook
 
-LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
+LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
 # Set when building on Travis so that certain long-running build steps can
 # be skipped to shorten build time.
