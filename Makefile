@@ -15,7 +15,8 @@ ALL_STACKS:=base-notebook \
 	minimal-notebook \
 	scipy-notebook \
 	tensorflow-notebook \
-	datascience-notebook
+	datascience-notebook \
+	icecube-notebook
 endif
 
 ALL_IMAGES:=$(ALL_STACKS)
