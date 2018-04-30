@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zlib1g \
         zlib1g-dev \
         build-essential \
+        libsprng2-dev \
         mc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -50,7 +51,11 @@ RUN conda install --quiet --yes -c QuantStack -c conda-forge \
     'cmake=3.11*' \
     'boost=1.67*' \
     'boost-cpp=1.67*' \
-    'cfitsio=3.430*'&& \
+    'cfitsio=3.430*' \
+    'urwid=1.3*' \
+    'nlopt=2.4*' \
+    'suitesparse=4.5*' \
+    'zstd=1.3*' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
