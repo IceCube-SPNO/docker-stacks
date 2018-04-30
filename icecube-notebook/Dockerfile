@@ -49,7 +49,8 @@ RUN conda install --quiet --yes -c QuantStack -c conda-forge \
     conda install --quiet --yes \
     'cmake=3.11*' \
     'boost=1.67*' \
-    'boost-cpp=1.67*' && \
+    'boost-cpp=1.67*' \
+    'cfitsio=3.430*'&& \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
