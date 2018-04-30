@@ -33,7 +33,7 @@ RUN conda install --quiet --yes \
     'statsmodels=0.8*' \
     'cloudpickle=0.2*' \
     'dill=0.2*' \
-    'numba=0.31*' \
+    'numba=0.33*' \
     'bokeh=0.12*' \
     'sqlalchemy=1.1*' \
     'hdf5=1.8.17' \
