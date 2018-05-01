@@ -127,6 +127,10 @@ RUN wget --quiet ftp://ftp.invisible-island.net/cdk/cdk-$CDK_VERSION.tgz && \
     make install && \
     cd .. && \
     rm -rf cdk-$CDK_VERSION/ cdk-$CDK_VERSION.tgz && \
-    cd /opt/conda/lib && ln -s libcdk.so.5.0 libcdk.so
+    cd /opt/conda/lib && \
+    mv libcdk.so.5.0 libcdk.so.6.0.4 && \
+    ln -s libcdk.so.6.0.4 libcdk.so.6.0 && \
+    ln -s libcdk.so.6.0 libcdk.so.6 && \
+    ln -s libcdk.so.6 libcdk.so
 
 WORKDIR /home/$NB_USER
