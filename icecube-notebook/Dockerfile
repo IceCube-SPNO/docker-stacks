@@ -90,8 +90,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zlib1g \
         zlib1g-dev \
         build-essential \
-        libcdk5 \
-        libcdk5-dev \
         libsprng2-dev \
         libstarlink-pal-dev \
         mc && \
@@ -116,3 +114,18 @@ RUN conda install --quiet --yes -c QuantStack -c conda-forge \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+# cdk (build on our own in order to link against conda's ncurses)
+WORKDIR /tmp
+ARG CDK_VERSION=5.0-20160131
+RUN wget --quiet ftp://ftp.invisible-island.net/cdk/cdk-$CDK_VERSION.tgz && \
+    echo "c32d075806c231b96ca3778bd24132c7aa0ba9a126f3cebb8a16c59a8b132c22 cdk-$CDK_VERSION.tgz" | sha256sum -c - && \
+    tar xzf cdk-$CDK_VERSION.tgz && \
+    cd cdk-$CDK_VERSION && \
+    ./configure --prefix=/opt/conda --with-curses-dir=/opt/conda --enable-rpath --with-shared && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf cdk-$CDK_VERSION/ cdk-$CDK_VERSION.tgz && \
+    cd /opt/conda/lib && ln -s libcdk.so.5.0 libcdk.so
+
+WORKDIR /home/$NB_USER
