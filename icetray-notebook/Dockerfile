@@ -39,5 +39,5 @@ RUN make test-bins -j`nproc`
 WORKDIR /home/$NB_USER
 
 # Configure container startup (with icetray)
-ENTRYPOINT ["tini", "--"]
-CMD ["/bin/bash", "/opt/icetray/combo/build/env-shell.sh", "exec", "/bin/bash", "start-notebook.sh"]
+ENTRYPOINT ["tini", "--", "/opt/icetray/combo/build/env-shell.sh"]
+CMD ["/bin/bash"]
