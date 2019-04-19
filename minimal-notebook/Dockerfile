@@ -1,7 +1,7 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-
-FROM icecube/base-notebook
+ARG BASE_CONTAINER=icecube/base-notebook
+FROM $BASE_CONTAINER
 
 LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
@@ -27,10 +27,10 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     texlive-latex-base \
     texlive-latex-extra \
     texlive-xetex \
+    tzdata \
     unzip \
-    vim \
-    && apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    nano \
+    && rm -rf /var/lib/apt/lists/*
 
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID

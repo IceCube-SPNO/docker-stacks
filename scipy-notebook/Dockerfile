@@ -1,15 +1,15 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM icecube/minimal-notebook
+ARG BASE_CONTAINER=icecube/minimal-notebook
+FROM $BASE_CONTAINER
 
 LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
 USER root
 
-# libav-tools for matplotlib anim
+# ffmpeg for matplotlib anim
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libav-tools && \
-    apt-get clean && \
+    apt-get install -y --no-install-recommends ffmpeg && \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
@@ -18,37 +18,40 @@ USER $NB_UID
 # Remove pyqt and qt pulled in for matplotlib since we're only ever going to
 # use notebook-friendly backends in these images
 RUN conda install --quiet --yes \
-    'blas=*=openblas' \
-    'ipywidgets=7.1*' \
-    'pandas=0.19*' \
+    'conda-forge::blas=*=openblas' \
+    'ipywidgets=7.4*' \
+    'pandas=0.24*' \
     'numexpr=2.6*' \
-    'matplotlib=2.0*' \
-    'scipy=0.19*' \
-    'seaborn=0.7*' \
-    'scikit-learn=0.18*' \
-    'scikit-image=0.12*' \
-    'sympy=1.0*' \
-    'cython=0.25*' \
-    'patsy=0.4*' \
-    'statsmodels=0.8*' \
-    'cloudpickle=0.2*' \
+    'matplotlib=3.0*' \
+    'scipy=1.2*' \
+    'seaborn=0.9*' \
+    'scikit-learn=0.20*' \
+    'scikit-image=0.14*' \
+    'sympy=1.3*' \
+    'cython=0.29*' \
+    'patsy=0.5*' \
+    'statsmodels=0.9*' \
+    'cloudpickle=0.8*' \
     'dill=0.2*' \
-    'numba=0.33*' \
-    'bokeh=0.12*' \
-    'sqlalchemy=1.1*' \
-    'hdf5=1.8.17' \
-    'h5py=2.6*' \
+    'dask=1.1.*' \
+    'numba=0.42*' \
+    'bokeh=1.0*' \
+    'sqlalchemy=1.3*' \
+    'hdf5=1.10*' \
+    'h5py=2.9*' \
     'vincent=0.4.*' \
-    'beautifulsoup4=4.5.*' \
-    'protobuf=3.*' \
+    'beautifulsoup4=4.7.*' \
+    'protobuf=3.7.*' \
     'xlrd'  && \
     conda remove --quiet --yes --force qt pyqt && \
     conda clean -tipsy && \
     # Activate ipywidgets extension in the environment that runs the notebook server
     jupyter nbextension enable --py widgetsnbextension --sys-prefix && \
     # Also activate ipywidgets extension for JupyterLab
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^0.35 && \
-    jupyter labextension install jupyterlab_bokeh@^0.5.0 && \
+    # Check this URL for most recent compatibilities
+    # https://github.com/jupyter-widgets/ipywidgets/tree/master/packages/jupyterlab-manager
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager@^0.38.1 && \
+    jupyter labextension install jupyterlab_bokeh@0.6.3 && \
     npm cache clean --force && \
     rm -rf $CONDA_DIR/share/jupyter/lab/staging && \
     rm -rf /home/$NB_USER/.cache/yarn && \

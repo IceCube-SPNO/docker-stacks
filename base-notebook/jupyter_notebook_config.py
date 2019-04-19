@@ -8,9 +8,17 @@ import errno
 import stat
 
 c = get_config()
-c.NotebookApp.ip = '*'
+c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.port = 8888
 c.NotebookApp.open_browser = False
+
+# Force nbsignatures.db not to written to the filesystem
+# (we might have to use NFS without locking and SQLite
+# really does not like that)
+c.NotebookNotary.db_file = ':memory:'
+
+# https://github.com/jupyter/notebook/issues/3130
+c.FileContentsManager.delete_to_trash = False
 
 # Generate a self-signed certificate
 if 'GEN_CERT' in os.environ:
@@ -23,6 +31,17 @@ if 'GEN_CERT' in os.environ:
             pass
         else:
             raise
+
+    # Generate an openssl.cnf file to set the distinguished name
+    cnf_file = os.path.join(os.getenv('CONDA_DIR', '/usr/lib'), 'ssl', 'openssl.cnf')
+    if not os.path.isfile(cnf_file):
+        with open(cnf_file, 'w') as fh:
+            fh.write('''\
+[req]
+distinguished_name = req_distinguished_name
+[req_distinguished_name]
+''')
+
     # Generate a certificate if one doesn't exist on disk
     subprocess.check_call(['openssl', 'req', '-new',
                            '-newkey', 'rsa:2048',
@@ -34,3 +53,8 @@ if 'GEN_CERT' in os.environ:
     # Restrict access to the file
     os.chmod(pem_file, stat.S_IRUSR | stat.S_IWUSR)
     c.NotebookApp.certfile = pem_file
+
+# Change default umask for all subprocesses of the notebook server if set in
+# the environment
+if 'NB_UMASK' in os.environ:
+    os.umask(int(os.environ['NB_UMASK'], 8))

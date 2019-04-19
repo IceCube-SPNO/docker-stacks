@@ -1,13 +1,15 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM icecube/datascience-notebook
+ARG BASE_CONTAINER=icecube/datascience-notebook
+FROM $BASE_CONTAINER
 
 LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
 # Install Tensorflow
 RUN conda install --quiet --yes \
-    'tensorflow-gpu=1.3*' \
-    'keras=2.0*' && \
+    'tensorflow-gpu=1.12*' \
+    'keras=2.2*' && \
     conda clean -tipsy && \
+    jupyter labextension install jupyterlab_tensorboard && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER

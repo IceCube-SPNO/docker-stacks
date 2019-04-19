@@ -2,7 +2,7 @@
 # Distributed under the terms of the Modified BSD License.
 
 # Ubuntu image 
-FROM ppc64le/ubuntu:trusty
+FROM ppc64le/ubuntu:18.04
 
 LABEL maintainer="Ilsiyar Gaynutdinov <ilsiyar_gaynutdinov@ru.ibm.com>"
 
@@ -21,7 +21,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     locales \
     sudo \
     wget \
-    && apt-get clean && \
+    && \
     rm -rf /var/lib/apt/lists/*
 
 RUN echo "LANGUAGE=en_US.UTF-8" >> /etc/default/locale
@@ -30,10 +30,10 @@ RUN echo "LC_TYPE=en_US.UTF-8" >> /etc/default/locale
 RUN locale-gen en_US en_US.UTF-8
 
 #build and install Tini for ppc64le
-RUN wget https://github.com/krallin/tini/archive/v0.10.0.tar.gz && \
-    tar zxvf v0.10.0.tar.gz && \
-    rm -rf v0.10.0.tar.gz
-WORKDIR tini-0.10.0/
+RUN wget https://github.com/krallin/tini/archive/v0.18.0.tar.gz && \
+    tar zxvf v0.18.0.tar.gz && \
+    rm -rf v0.18.0.tar.gz
+WORKDIR tini-0.18.0/
 RUN cmake . && make install
 RUN mv ./tini /usr/local/bin/tini  && \
     chmod +x /usr/local/bin/tini
@@ -87,7 +87,7 @@ WORKDIR /home/$NB_USER/work
 RUN echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Configure container startup
-ENTRYPOINT ["tini", "--"]
+ENTRYPOINT ["tini", "-g", "--"]
 CMD ["start-notebook.sh"]
 
 # Add local files as late as possible to avoid cache busting

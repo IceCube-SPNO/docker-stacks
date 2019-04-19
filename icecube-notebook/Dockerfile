@@ -1,6 +1,5 @@
-# Copyright (c) Jupyter Development Team.
-# Distributed under the terms of the Modified BSD License.
-FROM icecube/tensorflow-notebook
+ARG BASE_CONTAINER=icecube/tensorflow-notebook
+FROM $BASE_CONTAINER
 
 LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
@@ -118,7 +117,7 @@ RUN conda install --quiet --yes -c QuantStack -c conda-forge \
 # cdk (build on our own in order to link against conda's ncurses)
 WORKDIR /tmp
 ARG CDK_VERSION=5.0-20160131
-RUN wget --quiet ftp://ftp.invisible-island.net/cdk/cdk-$CDK_VERSION.tgz && \
+RUN wget --quiet ftp://ftp.invisible-island.net/pub/cdk/cdk-$CDK_VERSION.tgz && \
     echo "c32d075806c231b96ca3778bd24132c7aa0ba9a126f3cebb8a16c59a8b132c22 cdk-$CDK_VERSION.tgz" | sha256sum -c - && \
     tar xzf cdk-$CDK_VERSION.tgz && \
     cd cdk-$CDK_VERSION && \

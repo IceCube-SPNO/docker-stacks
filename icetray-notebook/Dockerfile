@@ -1,4 +1,5 @@
-FROM icecube/icecube-notebook
+ARG BASE_CONTAINER=icecube/icecube-notebook
+FROM $BASE_CONTAINER
 
 LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 
@@ -15,10 +16,13 @@ USER $NB_UID
 WORKDIR /opt/icetray
 
 # check out icetray/combo/trunk
+# (somehow libtinfo.so is explicitly included by cmake here
+# but not on icetray builds on some other systems.)
 RUN mkdir -p /opt/icetray/combo && mkdir /opt/icetray/combo/build && \
     svn co http://code.icecube.wisc.edu/svn/meta-projects/combo/trunk \
            /opt/icetray/combo/src \
-           --username=icecube --password=skua --no-auth-cache
+           --username=icecube --password=skua --no-auth-cache && \
+    sed -i '/^[^#]/ s/\(^.*tinfo.*$\)/#\ \1/' /opt/icetray/combo/src/cmake/tools/ncurses.cmake
 
 # prepare icetray build
 WORKDIR /opt/icetray/combo/build

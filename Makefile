@@ -24,7 +24,7 @@ ALL_IMAGES:=$(ALL_STACKS)
 
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
-	@echo "jupyter/docker-stacks"
+	@echo "IceCube-SPNO/docker-stacks"
 	@echo "====================="
 	@echo "Replace % with a stack directory name (e.g., make build/minimal-notebook)"
 	@echo
@@ -58,6 +58,9 @@ dev-env: ## install libraries required to build docs and run tests
 
 docs: ## build HTML documentation
 	make -C docs html
+
+test/docs: ## check links in Sphinx documentation
+	make -C docs
 
 test/%: ## run tests against a stack
 	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test
