@@ -10,6 +10,7 @@ RUN conda install --quiet --yes \
     'tensorflow-gpu=1.12*' \
     'keras=2.2*' && \
     conda clean -tipsy && \
+    pip install --pre jupyter-tensorboard && \
     jupyter labextension install jupyterlab_tensorboard && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
