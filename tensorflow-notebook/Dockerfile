@@ -8,7 +8,8 @@ LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
 # Install Tensorflow
 RUN conda install --quiet --yes \
     'tensorflow-gpu=1.12*' \
-    'keras=2.2*' && \
+    'keras=2.2*' \
+    'pydot=1.4*' && \
     conda clean -tipsy && \
     pip install --pre jupyter-tensorboard && \
     jupyter labextension install jupyterlab_tensorboard && \
