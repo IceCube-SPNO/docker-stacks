@@ -39,6 +39,10 @@ RUN make -j`nproc`
 # build icetray test binaries
 RUN make test-bins -j`nproc`
 
+RUN conda install --quiet --yes \
+    'pydot=1.4*' && \
+    conda clean -tipsy
+
 # change back to the home directory
 WORKDIR /home/$NB_USER
 
