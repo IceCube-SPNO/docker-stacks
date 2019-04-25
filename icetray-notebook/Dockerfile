@@ -30,8 +30,7 @@ RUN cmake /opt/icetray/combo/src \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-rpath,/opt/conda/lib" \
       -DCMAKE_MODULE_LINKER_FLAGS="-Wl,-rpath,/opt/conda/lib" \
-      -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath,/opt/conda/lib" \
-      -DCMAKE_CXX_FLAGS="-D_GLIBCXX_USE_CXX11_ABI=0"
+      -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath,/opt/conda/lib"
 
 # build icetray
 RUN make -j`nproc`
@@ -43,5 +42,5 @@ RUN make test-bins -j`nproc`
 WORKDIR /home/$NB_USER
 
 # Configure container startup (with icetray)
-ENTRYPOINT ["tini", "--", "/opt/icetray/combo/build/env-shell.sh"]
-CMD ["/bin/bash"]
+ENTRYPOINT ["tini", "-g", "--", "/opt/icetray/combo/build/env-shell.sh"]
+CMD ["start-notebook.sh"]

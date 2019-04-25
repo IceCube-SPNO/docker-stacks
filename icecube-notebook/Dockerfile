@@ -99,16 +99,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 USER $NB_UID
 
 # cling, cmake
-RUN conda install --quiet --yes -c QuantStack -c conda-forge \
-    'xeus-cling=0.4*' && \
-    conda install --quiet --yes \
-    'cmake=3.11*' \
-    'boost=1.67*' \
-    'boost-cpp=1.67*' \
+RUN conda install --quiet --yes -c conda-forge \
+    'xeus-cling=0.5*' \
+    'cmake=3.14*' \
+    'boost=1.69*' \
+    'boost-cpp=1.69*' \
     'cfitsio=3.430*' \
-    'urwid=1.3*' \
-    'nlopt=2.4*' \
-    'suitesparse=4.5*' \
+    'urwid=2.0*' \
+    'nlopt=2.6*' \
+    'suitesparse=5.2*' \
     'zstd=1.3*' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
