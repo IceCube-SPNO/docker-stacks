@@ -1,9 +1,9 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=icecube/base-notebook
+ARG BASE_CONTAINER=blaufuss/base-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
+LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
 
 USER root
 

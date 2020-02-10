@@ -1,7 +1,7 @@
-ARG BASE_CONTAINER=icecube/tensorflow-notebook
+ARG BASE_CONTAINER=blaufuss/tensorflow-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
+LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
 
 # Set when building on Travis so that certain long-running build steps can
 # be skipped to shorten build time.
@@ -12,6 +12,7 @@ USER root
 # additional tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
         subversion \
+	openssh-client \
         rsync && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -31,25 +32,25 @@ ENV I3_DATA /opt/i3-data
 RUN mkdir /opt/i3-data/neutrino-generator && \
     wget -nv -t 5 -O /opt/i3-data/safeprimes_base32.gz  http://code.icecube.wisc.edu/tools/clsim/safeprimes_base32.gz && \
     wget -nv -t 5 -O /opt/i3-data/safeprimes_base32.txt http://code.icecube.wisc.edu/tools/clsim/safeprimes_base32.txt && \
-    wget -nv -t 5 -O /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz http://code.icecube.wisc.edu/tools/neutrino-generator/nugen-v3-tables.tgz && \
-    tar -zx -f /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz -C /opt/i3-data/neutrino-generator && \
-    rm /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz && \
+    #wget -nv -t 5 -O /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz http://code.icecube.wisc.edu/tools/neutrino-generator/nugen-v3-tables.tgz && \
+    #tar -zx -f /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz -C /opt/i3-data/neutrino-generator && \
+    #rm /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz && \
     chmod -R u+rwX,go+rX,go-w /opt/i3-data/neutrino-generator
 
 # add GCD files
-RUN mkdir /opt/i3-data/GCD && \
-    wget -nv -N -t 5 -P /opt/i3-data/GCD/ -r -l 1 -A *.i3* -nd http://prod-exe.icecube.wisc.edu/GCD/ && \
-    chmod -R u+rwX,go+rX,go-w /opt/i3-data/GCD
+#RUN mkdir /opt/i3-data/GCD && \
+#    wget -nv -N -t 5 -P /opt/i3-data/GCD/ -r -l 1 -A *.i3* -nd http://prod-exe.icecube.wisc.edu/GCD/ && \
+#    chmod -R u+rwX,go+rX,go-w /opt/i3-data/GCD
 
 # install photon tables
 RUN mkdir /opt/i3-data/photon-tables && \
     mkdir /opt/i3-data/photon-tables/splines && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.abs.fits       http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.abs.fits && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.prob.fits      http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.prob.fits && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.abs.fits    http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.abs.fits && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.prob.fits   http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.prob.fits && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/NoHoleIceCascades_250_z20_a10.abs.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.abs.fits && \
-    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/NoHoleIceCascades_250_z20_a10.prob.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.prob.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.abs.fits       http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.abs.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.prob.fits      http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.prob.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.abs.fits    http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.abs.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.prob.fits   http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.prob.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/NoHoleIceCascades_250_z20_a10.abs.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.abs.fits && \
+#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/NoHoleIceCascades_250_z20_a10.prob.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.prob.fits && \
     wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/InfBareMu_mie_abs_z20a10_V2.fits  http://prod-exe.icecube.wisc.edu/spline-tables/InfBareMu_mie_abs_z20a10_V2.fits && \
     wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/InfBareMu_mie_prob_z20a10_V2.fits http://prod-exe.icecube.wisc.edu/spline-tables/InfBareMu_mie_prob_z20a10_V2.fits
 
@@ -90,6 +91,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zlib1g-dev \
         build-essential \
         libsprng2-dev \
+	libarchive-dev \
         libstarlink-pal-dev \
         htop \
         mc && \
