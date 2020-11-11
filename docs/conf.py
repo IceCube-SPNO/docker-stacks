@@ -21,11 +21,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-# For conversion from markdown to html
-import recommonmark.parser
-from recommonmark.transform import AutoStructify
-
-
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -52,7 +47,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'docker-stacks'
-copyright = '2018, Project Jupyter'
+copyright = '2018- Project Jupyter'
 author = 'Project Jupyter'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -191,7 +186,12 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-# -- Extension configuration -------------------------------------------------
+# -- Extension configuration ----------------------------------------------
 
 # Anchors are often dynamic
 linkcheck_anchors = False
+
+# -- Translation ----------------------------------------------------------
+
+gettext_uuid = True
+locale_dirs = ['locale/']

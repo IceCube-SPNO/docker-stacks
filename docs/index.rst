@@ -43,9 +43,11 @@ Table of Contents
    :maxdepth: 2
    :caption: Contributor Guide
 
-   contributing/issues 
+   contributing/issues
    contributing/packages
    contributing/recipes
+   contributing/translations
+   contributing/lint
    contributing/tests
    contributing/features
    contributing/stacks
@@ -61,5 +63,5 @@ Table of Contents
    :caption: Getting Help
 
    Jupyter Discourse Forum <https://discourse.jupyter.org>
-   Jupyter Docker Stacks Issue Tracker <https://github.com/jupyter/docker-stacks/issues>
+   Stacks Issue Tracker <https://github.com/jupyter/docker-stacks/issues>
    Jupyter Website <https://jupyter.org>

@@ -7,15 +7,10 @@ import os
 import errno
 import stat
 
-c = get_config()
+c = get_config()  # noqa: F821
 c.NotebookApp.ip = '0.0.0.0'
 c.NotebookApp.port = 8888
 c.NotebookApp.open_browser = False
-
-# Force nbsignatures.db not to written to the filesystem
-# (we might have to use NFS without locking and SQLite
-# really does not like that)
-c.NotebookNotary.db_file = ':memory:'
 
 # https://github.com/jupyter/notebook/issues/3130
 c.FileContentsManager.delete_to_trash = False
