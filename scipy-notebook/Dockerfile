@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=jupyter/minimal-notebook
+ARG BASE_CONTAINER=icecube/minimal-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"

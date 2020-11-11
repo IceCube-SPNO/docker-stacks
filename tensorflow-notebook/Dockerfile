@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=jupyter/scipy-notebook
+ARG BASE_CONTAINER=icecube/scipy-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
