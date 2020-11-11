@@ -1,15 +1,16 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=icecube/minimal-notebook
+ARG BASE_CONTAINER=blaufuss/minimal-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
+LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
 
 USER root
 
 # ffmpeg for matplotlib anim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg && \
+    apt-get install -y  --no-install-recommends libhealpix-cxx-dev && \
     rm -rf /var/lib/apt/lists/*
 
 USER $NB_UID
@@ -20,10 +21,13 @@ USER $NB_UID
 RUN conda install --quiet --yes \
     'conda-forge::blas=*=openblas' \
     'ipywidgets=7.4*' \
-    'pandas=0.24*' \
+    'pandas=0.25*' \
+    'numpy=1.16.*' \
     'numexpr=2.6*' \
     'matplotlib=3.0*' \
     'scipy=1.2*' \
+    'healpy=1.13.*' \
+    'astropy=2.0.*' \
     'seaborn=0.9*' \
     'scikit-learn=0.20*' \
     'scikit-image=0.14*' \

@@ -1,11 +1,11 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-# nvidia/cuda 2019-04-19
-ARG BASE_CONTAINER=nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04@sha256:e5cbf984478904fb89aed254547e744630d479117d46119f784c2c3a48a87e2c
+# nvidia/cuda 2020-02-07
+ARG BASE_CONTAINER=nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04@sha256:d3f5d6e8fe105dadb55aef7c80191d6281bbd18989a05124b108b7c8a522a5ad
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
+LABEL maintainer="E Blaufuss (blaufuss@gmail.com"
 ARG NB_USER="jovyan"
 ARG NB_UID="1000"
 ARG NB_GID="100"
@@ -19,6 +19,7 @@ RUN apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
+    vim \
     ca-certificates \
     sudo \
     locales \

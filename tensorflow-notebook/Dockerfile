@@ -1,9 +1,9 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-ARG BASE_CONTAINER=icecube/datascience-notebook
+ARG BASE_CONTAINER=blaufuss/datascience-notebook
 FROM $BASE_CONTAINER
 
-LABEL maintainer="Claudio Kopper <ckopper@icecube.wisc.edu>"
+LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
 
 # Install Tensorflow
 RUN conda install --quiet --yes \
