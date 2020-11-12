@@ -1,7 +1,7 @@
 # IceCube Data Science Docker Stacks
 
 Docker Stacks are a set of ready-to-run [Docker images](https://hub.docker.com/u/blaufuss) containing Jupyter applications, IceCube tools, and interactive computing tools.
-
+Note, these need to use [Nividia-docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) to use system GPUs correctly.
 
 ## Images available
 

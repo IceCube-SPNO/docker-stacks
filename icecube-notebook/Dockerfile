@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=blaufuss/tensorflow-notebook
+ARG BASE_CONTAINER=icecube/tensorflow-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
@@ -32,32 +32,32 @@ ENV I3_DATA /opt/i3-data
 RUN mkdir /opt/i3-data/neutrino-generator && \
     wget -nv -t 5 -O /opt/i3-data/safeprimes_base32.gz  http://code.icecube.wisc.edu/tools/clsim/safeprimes_base32.gz && \
     wget -nv -t 5 -O /opt/i3-data/safeprimes_base32.txt http://code.icecube.wisc.edu/tools/clsim/safeprimes_base32.txt && \
-    #wget -nv -t 5 -O /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz http://code.icecube.wisc.edu/tools/neutrino-generator/nugen-v3-tables.tgz && \
-    #tar -zx -f /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz -C /opt/i3-data/neutrino-generator && \
-    #rm /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz && \
+    wget -nv -t 5 -O /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz http://code.icecube.wisc.edu/tools/neutrino-generator/nugen-v3-tables.tgz && \
+    tar -zx -f /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz -C /opt/i3-data/neutrino-generator && \
+    rm /opt/i3-data/neutrino-generator/nugen-v3-tables.tgz && \
     chmod -R u+rwX,go+rX,go-w /opt/i3-data/neutrino-generator
 
 # add GCD files
-#RUN mkdir /opt/i3-data/GCD && \
-#    wget -nv -N -t 5 -P /opt/i3-data/GCD/ -r -l 1 -A *.i3* -nd http://prod-exe.icecube.wisc.edu/GCD/ && \
-#    chmod -R u+rwX,go+rX,go-w /opt/i3-data/GCD
+RUN mkdir /opt/i3-data/GCD && \
+    wget -nv -N -t 5 -P /opt/i3-data/GCD/ -r -l 1 -A GeoCalibDetectorStatus_IC86*.i3* -nd http://prod-exe.icecube.wisc.edu/GCD/ && \
+    chmod -R u+rwX,go+rX,go-w /opt/i3-data/GCD
 
 # install photon tables
 RUN mkdir /opt/i3-data/photon-tables && \
-    mkdir /opt/i3-data/photon-tables/splines && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.abs.fits       http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.abs.fits && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.prob.fits      http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.prob.fits && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.abs.fits    http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.abs.fits && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.prob.fits   http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.prob.fits && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/NoHoleIceCascades_250_z20_a10.abs.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.abs.fits && \
-#    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/NoHoleIceCascades_250_z20_a10.prob.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.prob.fits && \
+     mkdir /opt/i3-data/photon-tables/splines && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.abs.fits       http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.abs.fits && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_mie_z20_a10.prob.fits      http://prod-exe.icecube.wisc.edu/spline-tables/ems_mie_z20_a10.prob.fits && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.abs.fits    http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.abs.fits && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/ems_spice1_z20_a10.prob.fits   http://prod-exe.icecube.wisc.edu/spline-tables/ems_spice1_z20_a10.prob.fits && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/NoHoleIceCascades_250_z20_a10.abs.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.abs.fits && \
+    wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/NoHoleIceCascades_250_z20_a10.prob.fits http://prod-exe.icecube.wisc.edu/spline-tables/NoHoleIceCascades_250_z20_a10.prob.fits && \
     wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/InfBareMu_mie_abs_z20a10_V2.fits  http://prod-exe.icecube.wisc.edu/spline-tables/InfBareMu_mie_abs_z20a10_V2.fits && \
     wget -nv -t 5 -O /opt/i3-data/photon-tables/splines/InfBareMu_mie_prob_z20a10_V2.fits http://prod-exe.icecube.wisc.edu/spline-tables/InfBareMu_mie_prob_z20a10_V2.fits
 
 # install I3_TESTDATA
 RUN mkdir /opt/i3-data/i3-test-data && \
     rsync -vrlpt --delete code.icecube.wisc.edu::Offline/test-data/releases/V00-00-00/ /opt/i3-data/i3-test-data/ && \
-    chmod -R u+rwX,go+rX,go-w /opt/i3-data/i3-test-data
+     chmod -R u+rwX,go+rX,go-w /opt/i3-data/i3-test-data
 ENV I3_TESTDATA /opt/i3-data/i3-test-data
 
 
@@ -94,6 +94,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libarchive-dev \
         libstarlink-pal-dev \
         htop \
+        libgsl-dev \
         mc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -102,15 +103,15 @@ USER $NB_UID
 
 # cling, cmake
 RUN conda install --quiet --yes -c conda-forge \
-    'xeus-cling=0.5*' \
-    'cmake=3.14*' \
-    'boost=1.69*' \
-    'boost-cpp=1.69*' \
-    'cfitsio=3.430*' \
-    'urwid=2.0*' \
-    'nlopt=2.6*' \
-    'suitesparse=5.2*' \
-    'zstd=1.3*' && \
+    'xeus-cling' \
+    'cmake' \
+    'boost=1.72*' \
+    'boost-cpp=1.72*' \
+    'cfitsio' \
+    'urwid' \
+    'nlopt' \
+    'suitesparse' \
+    'zstd' && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER

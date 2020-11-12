@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=blaufuss/icecube-notebook
+ARG BASE_CONTAINER=icecube/icecube-notebook
 FROM $BASE_CONTAINER
 
 LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
@@ -24,7 +24,7 @@ WORKDIR /opt/icetray
 # (somehow libtinfo.so is explicitly included by cmake here
 # but not on icetray builds on some other systems.)
 RUN mkdir -p /opt/icetray/combo && mkdir /opt/icetray/combo/build && \
-    svn co http://code.icecube.wisc.edu/svn/meta-projects/combo/releases/V00-00-01 \
+    svn co http://code.icecube.wisc.edu/svn/meta-projects/combo/releases/V01-01-00 \
            /opt/icetray/combo/src \
            --username=icecube --password=skua --no-auth-cache 
 

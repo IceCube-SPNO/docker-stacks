@@ -5,7 +5,7 @@
 # https://hub.docker.com/_/ubuntu/?tab=tags&name=focal
 # OS/ARCH: linux/amd64
 #ARG ROOT_CONTAINER=ubuntu:focal-20201008@sha256:1d7b639619bdca2d008eca2d5293e3c43ff84cbee597ff76de3b7a7de3e84956
-## Base container is tensorflow provided one.  IT's setup is most fragile...
+## Base container is tensorflow provided one.  It's setup is most fragile...
 ARG ROOT_CONTAINER=tensorflow/tensorflow:2.3.1-gpu@sha256:37c7db66cc96481ac1ec43af2856ef65d3e664fd7f5df6b5e54855149f7f8594
 
 ARG BASE_CONTAINER=$ROOT_CONTAINER
