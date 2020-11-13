@@ -7,6 +7,7 @@ LABEL maintainer="E Blaufuss (blaufuss@gmail.com)"
 
 # Reinstall  Tensorflow - py38 version
 RUN pip install --quiet --no-cache-dir \
-    'tensorflow==2.3.1' && \
+    'tensorflow==2.3.1' \
+    'healpy' && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
