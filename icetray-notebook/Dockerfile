@@ -14,6 +14,11 @@ USER root
 #    apt-get clean && \
 #    rm -rf /var/lib/apt/lists/*
 
+WORKDIR /tmp
+RUN git clone https://github.com/IceCubeOpenSource/photospline.git && \
+    cd photospline && cmake . -DCMAKE_INSTALL_PREFIX=/opt/conda && make && make install
+RUN PREFIX=/opt/conda pip install git+https://github.com/icecube/nuflux
+
 # create a directory for icetray
 RUN mkdir /opt/icetray && chown $NB_UID:$NB_GID /opt/icetray
 
