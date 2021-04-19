@@ -18,7 +18,7 @@ Several images are provided that layer to a fully enabled image that contains py
 ## Quick Start
 To start the icetray-notebook locally in your docker enviroment, such as  [Docker Desktop](https://www.docker.com/products/docker-desktop), use:
 
-    docker run -ti --rm -v ~/jupyter-notebooks:/home/jovyan -p 8888:8888 blaufuss/icetray-notebook:latest  start.sh jupyter lab
+    docker run -ti --rm -v ~/jupyter-notebooks:/home/jovyan -p 8888:8888 icecube/icetray-notebook:latest  start.sh jupyter lab
 
 This command pulls the latest`icetraty-notebook`from Docker Hub if it is not already present on the local host. It then starts an *ephemeral* container running a Jupyter Notebook server and exposes the server on host port 8888. The command mounts the ~/jupyter-notebooks directory on the host as `/home/jovyan/work` in the container.  Visiting `http://<hostname>:8888/?token=<token>` in a browser loads JupyterLab, where `hostname` is the name of the computer running docker and `token` is the secret token printed in the console. Docker destroys the container after notebook server exit, but any files written to `~/jupyter-notebooks` in the container remain intact on the host.
 
