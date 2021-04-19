@@ -26,8 +26,8 @@ RUN git clone https://github.com/jsalvado/SQuIDS.git && \
 
 WORKDIR /tmp
 RUN git clone https://github.com/arguelles/nuSQuIDS.git && \
-    cd nuSQuIDS && ./configure --with-hdf5=/opt/conda --with-gsl=/opt/conda --with-squids=/opt/conda --prefix=/opt/conda && \
-    make && make install
+    cd nuSQuIDS && ./configure --python-bin=/opt/conda/bin/python --with-python-bindings --with-boost=/opt/conda  --with-gsl=/opt/conda --with-squids=/opt/conda --prefix=/opt/conda && \
+    make && make python && make install && make python-install
 
 
 # create a directory for icetray
