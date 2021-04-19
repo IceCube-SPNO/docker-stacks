@@ -19,6 +19,17 @@ RUN git clone https://github.com/IceCubeOpenSource/photospline.git && \
     cd photospline && cmake . -DCMAKE_INSTALL_PREFIX=/opt/conda && make && make install
 RUN PREFIX=/opt/conda pip install git+https://github.com/icecube/nuflux
 
+WORKDIR /tmp
+RUN git clone https://github.com/jsalvado/SQuIDS.git && \
+    cd SQuIDS && ./configure --with-gsl-incdir=/opt/conda/include/gsl --with-gsl-libdir=/opt/conda/lib --prefix=/opt/conda && \
+    make && make install
+
+WORKDIR /tmp
+RUN git clone https://github.com/arguelles/nuSQuIDS.git && \
+    cd nuSQuIDS && ./configure --with-hdf5=/opt/conda --with-gsl=/opt/conda --with-squids=/opt/conda --prefix=/opt/conda && \
+    make && make install
+
+
 # create a directory for icetray
 RUN mkdir /opt/icetray && chown $NB_UID:$NB_GID /opt/icetray
 
